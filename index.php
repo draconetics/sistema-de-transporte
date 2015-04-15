@@ -1,4 +1,10 @@
 <?php
+
+/*
+Esta es la nueva version sin errores.
+
+@utora Irene
+*/
 		session_start();
 		include_once('php_conexion.php'); 
 		
