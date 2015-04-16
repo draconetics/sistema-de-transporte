@@ -27,7 +27,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->
+    <!-- Le stylez-->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
     <link href="css/docs.css" rel="stylesheet">
@@ -80,14 +80,15 @@ body {
       <div class="navbar-inner">
         <div class="container" style="width: auto;">
           <a class="brand" href="inicio.php" target="admin"><?php echo $titulo; ?></a>
-          <ul class="nav" role="navigation">
+          <sul class="nav" role="navigation">
             <li class="dropdown">
               <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Registros <b class="caret"></b></a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 				<li role="presentation"><a role="menuitem" tabindex="-1" href="clientes.php" target="admin"><i class="icon-user"></i> Clientes</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="productos.php" target="admin"><i class="icon-tags"></i> Productos</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="servicios.php" target="admin"><i class="icon-wrench"></i> Servicios</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="trabajadores.php" target="admin"><i class="icon-user"></i> Trabajadores</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="conductor.php" target="admin"><i class="icon-user"></i> Conductor</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="buses.php" target="admin"><i class="icon-tags"></i> Buses</a></li>
                 
 				<!--<li role="presentation" class="divider"></li>-->  
               </ul>
