@@ -1,0 +1,34 @@
+<script src="dist/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
+	
+
+<?PHP 
+
+$nombreusuario=$_POST["nombreusuario"];
+$apellidousuario=$_POST["apellidousuario"];
+
+$loginusuario=$_POST["loginusuario"];
+$claveusuario=$_POST["claveusuario"];
+$tipousuario=$_POST["tipousuario"];
+
+include("php_conexion.php");
+		
+
+	$sql="INSERT INTO `transporte`.`usuario` (`idusuario`, `nombreusuario`, `apellidousuario`,`loginusuario`,`claveusuario`, `tipousuario`) 
+	VALUES (NULL, '$nombreusuario', '$apellidousuario','$loginusuario','$claveusuario', '$tipousuario'); ";
+
+//echo $sql; 
+
+
+
+mysql_query($sql,$conexion); 
+
+
+echo '<script language = javascript>swal("Los datos se guardaron", "Correctamente", "success")</script>';
+	
+echo '<script>window.location.href="trabajadores.php"</script>';
+
+
+
+
+?>
