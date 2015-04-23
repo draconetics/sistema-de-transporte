@@ -1,0 +1,337 @@
+<?php
+  include("php_conexion.php");
+
+  $result = mysql_query("SELECT * FROM ruta");
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    <title>Blanco</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/docs.css" rel="stylesheet">
+    <link href="js/google-code-prettify/prettify.css" rel="stylesheet">
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+    <script src="js/bootstrap-affix.js"></script>
+    <script src="js/holder/holder.js"></script>
+    <script src="js/google-code-prettify/prettify.js"></script>
+    <script src="js/application.js"></script>
+    
+        <script src="media/js/jquery.js" type="text/javascript"></script>
+        <script src="media/js/jquery.dataTables.js" type="text/javascript"></script>
+        
+        <style type="text/css">
+            @import "media/css/demo_table_jui.css";
+            @import "media/themes/smoothness/jquery-ui-1.8.4.custom.css";
+        </style>
+        
+        <style>
+            *{
+                font-family: arial;
+            }
+        </style>
+    
+        <script type="text/javascript" charset="utf-8">
+            $(document).ready(function(){
+                $('#datatables').dataTable({
+
+                    "aaSorting":[[2, "desc"]],
+                    "bJQueryUI":true
+                });
+            })
+            
+        </script>
+    
+    <!-- Le fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+        
+    </head>
+    
+  <body>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+var map1;
+var map2;
+
+function initialize() {
+  var mapOptions = {
+    zoom: 12,
+    center: new google.maps.LatLng(-17.3940401, -66.1638756)
+  };
+
+  
+
+  map1 = new google.maps.Map(document.getElementById('map1'),
+      mapOptions);
+  map2 = new google.maps.Map(document.getElementById('map2'),
+      mapOptions);
+
+  var marker1 = new google.maps.Marker({
+    position: map1.getCenter(),
+    draggable: true,
+    map: map1,
+    title: 'Click to zoom'
+  });
+
+  document.getElementById("inilat").value = '-17.3940401';
+  document.getElementById("inilong").value = '-66.1638756';
+  document.getElementById("finlat").value = '-17.3940401';
+  document.getElementById("finlong").value = '-66.1638756';
+
+
+  //alert("entra a mapa");
+
+  var marker2 = new google.maps.Marker({
+    position: map2.getCenter(),
+    draggable:true,
+    map: map2,
+    title: 'Click to zoom'
+  });
+
+  google.maps.event.addListener(map1, 'center_changed', function() {
+    // 3 seconds after the center of the map has changed, pan back to the
+    // marker.
+    window.setTimeout(function() {
+      map1.panTo(marker1.getPosition());
+    }, 3000);
+  });
+
+  google.maps.event.addListener(marker1, 'click', function() {
+
+    //alert("entraaa...a click inicio");
+    var markerLatLng = marker1.getPosition();
+    
+    //alert("entrra a click");
+    //map1.setZoom(14);
+    map1.setCenter(markerLatLng);
+
+    //alert("llega hasta aqui");
+    //document.getElementById('inilong').value=markerLatLng.lng(); 
+
+
+    //var inilat = vardocument.getElementById("inilat");
+    //inilat.value = markerLatLng.lat();
+
+  });
+
+  google.maps.event.addListener(map2, 'center_changed', function() {
+    // 3 seconds after the center of the map has changed, pan back to the
+    // marker.
+
+    window.setTimeout(function() {
+      map2.panTo(marker2.getPosition());
+    }, 3000);
+  });
+
+  google.maps.event.addListener(marker2, 'click', function() {
+    //map2.setZoom(14);
+    //alert("entra a marker2");
+    map2.setCenter(marker2.getPosition());
+    //alert("hiciste click");
+    //document.getElementById("inilong").value = 'no mames guey';
+  });
+
+   google.maps.event.addListener(marker1,'drag',function(event) {
+        document.getElementById('inilat').value = event.latLng.lat().toFixed(6);
+        document.getElementById('inilong').value = event.latLng.lng().toFixed(6);
+    });
+
+    google.maps.event.addListener(marker1,'dragend',function(event) {
+        document.getElementById('inilat').value = event.latLng.lat().toFixed(6);
+        document.getElementById('inilong').value = event.latLng.lng().toFixed(6);
+    });
+
+     google.maps.event.addListener(marker2,'drag',function(event) {
+        document.getElementById('finlat').value = event.latLng.lat().toFixed(6);
+        document.getElementById('finlong').value = event.latLng.lng().toFixed(6);
+    });
+
+    google.maps.event.addListener(marker2,'dragend',function(event) {
+        document.getElementById('finlat').value = event.latLng.lat().toFixed(6);
+        document.getElementById('finlong').value = event.latLng.lng().toFixed(6);
+    });
+
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
+<form name="form2" method="post" enctype="multipart/form-data" action="insertarRuta.php">
+
+  <div align="center">
+    <table width="95%" border="0">
+      <tr>
+        <td>
+          <table class="table table-bordered">
+              <tr class="success">
+                <td>
+                    <div class="row-fluid">
+                      <div class="span6">
+                          <h3><img src="img/ser1.png" class="img-circle img-polaroid" width="70" height="65"> 
+                          Registro de Rutas</h3>
+                      </div>
+                      <div class="span6">
+                        <div align="right">
+            <br><br><br>
+              <!-- <a href="#" role="button" id="boton-nueva-ruta" class="btn btn-info" data-toggle="modal">
+                              <strong><i class="icon-user"></i> Agregar Nueva Ruta</strong>
+              </a> -->   
+                <button role="button" id="boton-add-ruta" type="submit" href="ruta_inicio.php" target="admin" class="btn btn-primary"><strong><i class="icon-user"></i>GUARDAR</strong></button>
+                 <a role="button" id="boton-add-ruta" href="ruta_inicio.php" target="admin" class="btn btn-primary"><strong><i class="icon-user"></i>CANCELAR</strong></a>                  
+             
+                        </div>
+                      </div>
+                    </div>
+
+                </td>
+              </tr>
+            </table>
+            <script>
+              //$('#boton-cancelar-ruta').hidden();
+/*
+              $("#boton-nueva-ruta").click(function(){
+                $('#boton-cancelar-ruta').show();
+                $('#tabla-nueva-ruta').show();
+                $('#boton-nueva-ruta').hide();
+                $('#boton-add-ruta').show();
+              });
+
+              $("#boton-cancelar-ruta").click(function(){
+                $('#tabla-nueva-ruta').hide();
+                $('#boton-cancelar-ruta').hide();
+                $('#boton-add-ruta').hide();
+                $('#boton-nueva-ruta').show();
+              });
+*/
+             // document.getElementById('boton-nueva-ruta').addEventListener('click',function(e){
+               // document.getElementById('tabla-nueva-ruta').style.display = 'block';});
+            </script>
+        </td>
+      </tr>
+  <tr>
+        <td>
+  
+        <div>
+            <table width="95%" border="0" class="table table-bordered" id="tabla-nueva-ruta" style="//display:none;">
+      
+      <tr border="10px">
+            <td width="40%" >Insertar punto de Partida:
+              <textarea name="inidetalle" rows="4" cols="50" placeholder="Insertar Informacion de calles Adyacentes.">
+              </textarea>
+              <table>
+                <tr>
+                  <td>Latitud</td>
+                  <td><input type="text" name="inilat" id="inilat" value="" /></td>
+                </tr>
+                <tr>
+                  <td>Longitud</td>
+                  <td><input type="text" name="inilong" id="inilong" value="" /></td>
+                </tr>
+              </table>
+            </td>
+              <td width="60%"><div id="map1" style="widht:500px;height:200px;border:2px solid blue;margin:6px 0 6px 0;"></div></td>
+      </tr>
+      <tr border="10px">
+            <td width="40%" >Insertar punto de Llegada:
+                <textarea name="findetalle" rows="4" cols="75" placeholder="Insertar Informacion de calles Adyacentes.">
+                </textarea>
+                <table>
+                <tr>
+                  <td>Latitud</td>
+                  <td><input type="text" name="finlat" id="finlat" value="" /></td>
+                </tr>
+                <tr>
+                  <td>Longitud</td>
+                  <td><input type="text" name="finlong" id="finlong" value="" /></td>
+                </tr>
+              </table>
+            </td>
+              <td width="60%"><div id="map2" style="widht:500px;height:200px;border:2px solid blue;margin:6px 0 6px 0;"></div></td>
+      </tr>    
+    </table>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+</form>    
+
+  <div align="center">
+    <table width="95%" border="0">
+      
+  <tr>
+        <td>
+  
+        <div>
+            <table id="datatables" class="display">
+                <thead>
+                    <tr class="Eliminar">
+                        <th>Id Ruta</th>
+                        <th>Parada Inicial</th>
+                        <th>Direccion de Parada Inicial</th>
+                        <th>Parada Final</th>
+                        <th>Direccion de Parada Final</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    while ($row = mysql_fetch_array($result)) {
+                        ?>
+                        <tr>
+            
+                            <td><?php
+                $idautobus=$row['idruta'];
+                echo  $idautobus;
+              ?> </td>
+                            <td><?php
+                $placa=$row['paradaInicial'];
+                echo $placa;
+              ?></td>
+              <td><?php
+                $placa=$row['descripcioninicial'];
+                echo $placa;
+              ?></td>
+              <td><?php
+                $estado=$row['paradafinal'];
+                echo $estado;
+              ?></td>
+              <td><?php
+                $placa=$row['descripcionfinal'];
+                echo $placa;
+              ?></td>
+                        </tr>
+          <?php } ?>
+            </table>
+        </td>
+      </tr>
+    </table>
+</div>
+
+</body>
+</html>
