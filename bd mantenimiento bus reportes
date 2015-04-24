@@ -1,0 +1,37 @@
+/*==============================================================*/
+/* DBMS name:      MySQL 5.0                                    */
+/* Created on:     24/04/2015 12:37:05                          */
+/*==============================================================*/
+
+
+drop table if exists AUTOBUS;
+
+drop table if exists MANTENIMIENTO;
+
+/*==============================================================*/
+/* Table: AUTOBUS                                               */
+/*==============================================================*/
+create table AUTOBUS
+(
+   IDAUTOBUS            numeric(8,0) not null,
+   PLACA                text,
+   CAPACIDAD            numeric(8,0),
+   primary key (IDAUTOBUS)
+);
+
+/*==============================================================*/
+/* Table: MANTENIMIENTO                                         */
+/*==============================================================*/
+create table MANTENIMIENTO
+(
+   IDAUTOBUS            numeric(8,0) not null,
+   COD_MANTEBUS         numeric(8,0) not null,
+   FECHAINI             date,
+   FECHAFIN             date,
+   DESCRIPCION          text,
+   primary key (IDAUTOBUS, COD_MANTEBUS)
+);
+
+alter table MANTENIMIENTO add constraint FK_DETALLE foreign key (IDAUTOBUS)
+      references AUTOBUS (IDAUTOBUS) on delete restrict on update restrict;
+
